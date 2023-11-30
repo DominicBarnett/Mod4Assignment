@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="weather-form">
+    <div class="weather-info">
+        {# 
+            TODO: Replace the hard-coded cities and date below with data from the 
+            server.
+        #}
+        <h1>Weather in {{city1_info['city']}} and {{city2_info['city']}}</h1>
+        <p>{{date}}</p>
+
+
+        {#
+            TODO: Add the temperature, description, and min & max temperature below.
+            Replace 'F' with the appropriate units.
+        #}
+        <p>
+            {% if city1_info['temp'] > city2_info['temp'] %}
+                {% set diff_desc = 'warmer' %}
+            {% else %}
+                {% set diff_desc = 'colder' %}
+            {% endif %}
+            It is {{ temp_diff }} {{ units_letter }} {{ diff_desc }} in {{ city1_info['city'] }} than in {{ city2_info['city'] }} today.
+        </p>
+
+        <p>
+            {% if city1_info['humidity'] == city2_info['humidity'] %}
+                {% set diff_desc = 'greater' %}
+            {% else %}
+                {% set diff_desc = 'less' %}
+            {% endif %}
+            The humidity in {{ city1_info['city'] }} is {{humidity_diff}} {{diff_desc}} than in {{ city2_info['city'] }}.
+        </p>
+
+        <p>
+            {% if city1_info['wind_speed'] > city2_info['wind_speed'] %}
+                {% set diff_desc = 'greater' %}
+            {% else %}
+                {% set diff_desc = 'less' %}
+            {% endif %}
+            The wind speed in {{ city1_info['city'] }} is {{wind_diff}} {{diff_desc}} than in {{ city2_info['city'] }}.
+        </p>
+
+        <p>
+            {% if city1_info['sunset'] > city2_info['sunset'] %}
+                {% set diff_desc = 'later' %}
+            {% else %}
+                {% set diff_desc = 'earlier' %}
+            {% endif %}
+            The sun sets in {{ city1_info['city'] }} {{sunset_diff}} hours {{diff_desc}} than in {{ city2_info['city'] }}.
+        </p>
+    </div>
+
+    <div class="weather-images">
+        <figure>
+            <img src="{{city1_info['icon']}}" alt="Weather icon">
+            <p>{{city1_info['city']}} Conditions: {{city1_info['description']}} </p>
+        </figure>
+
+        <figure>
+            <img src="{{city2_info['icon']}}" alt="Weather icon">
+            <p>{{city2_info['city']}} Conditions: {{city2_info['description']}} </p>
+        </figure>
+    
+    </div>
+    
+</section>
+
+{% endblock %}
